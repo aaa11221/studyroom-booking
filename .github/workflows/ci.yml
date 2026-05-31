@@ -27,7 +27,10 @@ jobs:
           cache: maven
 
       - name: Run backend tests with coverage
-        run: ./mvnw.cmd test
+        run: >
+          java -Dmaven.multiModuleProjectDirectory=.
+          -cp .mvn/wrapper/maven-wrapper.jar
+          org.apache.maven.wrapper.MavenWrapperMain test
 
       - name: Upload backend coverage to Codecov
         uses: codecov/codecov-action@v4
