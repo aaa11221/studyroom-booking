@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --ci --coverage --runInBand",
-    "lint": "eslint src/ --max-warnings 0"
+    "lint": "eslint src/ --max-warnings 0",
+    "sync:backend-static": "node scripts/sync-static-to-backend.mjs"
   },
   "keywords": [],
   "author": "",

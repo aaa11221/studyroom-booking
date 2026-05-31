@@ -15,6 +15,7 @@ function loadBlacklist() {
         const tbody = document.getElementById("blacklistBody");
         if (!list.length) {
             tbody.innerHTML = "<tr><td colspan='9' class='text-center'>暂无数据</td></tr>";
+            initDataTable("#example3");
             return;
         }
         tbody.innerHTML = list.map(function (s) {
@@ -35,7 +36,7 @@ function loadBlacklist() {
             el.addEventListener("click", function (e) {
                 e.preventDefault();
                 const sid = el.getAttribute("data-id");
-                if (!window.confirm("是否确认将该学生移出黑名单")) return;
+                if (!window.confirm("确认将该学生移出黑名单吗？")) return;
                 AppShell.api("/api/admin/blacklist/" + encodeURIComponent(sid), { method: "DELETE" })
                     .then(loadBlacklist)
                     .catch(showBlacklistError);
