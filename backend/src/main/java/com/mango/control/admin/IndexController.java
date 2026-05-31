@@ -38,7 +38,7 @@ public class IndexController {
         model.addAttribute("countClassroom",countClassroom);
         model.addAttribute("countReservation",countReservation);
 
-        return "index";
+        return "forward:/index.html";
     }
 
 

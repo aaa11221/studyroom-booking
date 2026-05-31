@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/reservation_demo?serverTimezone=UTC&useSSL=false&useUnicode=true&charsetEncoding=UTF-8
-    username: root
-    password: Futu@2028@
+    url: jdbc:mysql://localhost:3306/reservation_demo?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
+    username: reservation_user
+    password: Resv@123456
   thymeleaf:
     cache: false
 
@@ -12,3 +12,7 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 server:
   port: 9099
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080

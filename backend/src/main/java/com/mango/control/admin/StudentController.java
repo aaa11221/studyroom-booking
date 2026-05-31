@@ -31,7 +31,7 @@ public class StudentController {
         List<Student> students = studentService.getAll();
         model.addAttribute("students",students);
 
-        return "student/all_student";
+        return "forward:/all_student.html";
     }
 
     @GetMapping("/add_new_student")

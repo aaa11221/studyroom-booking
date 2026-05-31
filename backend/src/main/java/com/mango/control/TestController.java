@@ -19,7 +19,7 @@ public class TestController {
         System.out.println(parameter);
 
 
-        return "test";
+        return "forward:/index.html";
     }
 
 

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
- * 登录接口，进行登录判断
+ * 登录接口，进行登录判�?
  */
 @Controller
 public class LoginController {
@@ -29,7 +29,7 @@ public class LoginController {
 
     @GetMapping({"/","login"})
     public String login() {
-        return "login";
+        return "forward:/login.html";
     }
 
     @GetMapping("/logincheck")
@@ -37,10 +37,9 @@ public class LoginController {
         Student student = service.getStudentById(s_id);
         if (student == null) {
             model.addAttribute("msg","该用户不存在!");
-            return "login";
+            return "forward:/login.html";
         }else {
             if (psw.equals(student.getPassword())) {
-
                 HttpSession session = request.getSession();
 
                 session.setAttribute(WebConstant.LOGIN_USER,student);
@@ -50,9 +49,8 @@ public class LoginController {
                     return "redirect:student_index";
                 }
             } else {
-                model.addAttribute("msg","用户或密码错误!");
-
-                return "login";
+                model.addAttribute("msg","用户或密码错�?");
+                return "forward:/login.html";
             }
         }
     }

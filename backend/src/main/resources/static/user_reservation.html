@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学生预约管理-自习预约管理系统</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png">
+    <link rel="stylesheet" href="/assets/main/css/fonts.css">
+    <link rel="stylesheet" href="/assets/main/css/style.css">
+</head>
+<body>
+<div id="main-wrapper" class="show">
+    <aside class="left-panel nicescroll-box">
+        <nav class="navigation">
+            <ul class="list-unstyled main-menu">
+                <li class="has-submenu">
+                    <a href="/student_index" class="has-submenu active">
+                        <i class="fas fa-th-large"></i>
+                        <span class="nav-label">首页</span>
+                    </a>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="nav-label">预约管理</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="/make_reservation">预约自习室</a></li>
+                        <li class="active"><a href="/user_reservation">我的预约</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="/personal_settings">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-label">设置</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="header">
+        <header class="top-head container-fluid">
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+                <div class="left-header content-header__menu">
+                    <ul class="list-unstyled">
+                        <li class="nav-link btn">
+                            <a href="/make_reservation"><i class="far fa-calendar-check"></i> <span> 新添加自习预约 </span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="fullscreen notification_dropdown">
+                    <div class="full">
+                        <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
+                            <i class="fas fa-expand"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="my-account-wrapper">
+                    <div class="account-wrapper">
+                        <div class="account-control">
+                            <a class="login header-profile" href="#" title="Sign in">
+                                <div class="header-info">
+                                    <span id="headerUserName">未登录</span>
+                                    <small id="headerUserRole">访客</small>
+                                </div>
+                            </a>
+                            <div class="account-dropdown-form dropdown-container">
+                                <div class="form-content">
+                                    <a href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span class="ml-2">登出</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="content-body">
+        <div class="warper container-fluid">
+            <div class="new_appointment main_container">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4 class="text-primary">我的预约</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/student_index">首页</a></li>
+                            <li class="breadcrumb-item active"><a href="/user_reservation">我的预约</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example1" class="display nowrap">
+                                        <thead>
+                                        <tr>
+                                            <th>学生</th>
+                                            <th>学号</th>
+                                            <th>预约教室</th>
+                                            <th>教学楼</th>
+                                            <th>预约时间</th>
+                                            <th>日期</th>
+                                            <th>预约状态</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="reservationTableBody">
+                                        <tr>
+                                            <td colspan="7" class="text-center">加载中...</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/plugins/jquery/jquery.min.js"></script>
+<script src="/assets/plugins/popper/popper.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/plugins/moment/moment.min.js"></script>
+<script src="/assets/plugins/daterangepicker/daterangepicker.min.js"></script>
+<script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/js/toggleFullScreen.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/app-shell.js"></script>
+<script src="/assets/js/user_reservation_api.js"></script>
+</body>
+</html>

@@ -29,7 +29,7 @@ public class BlackListController {
             System.out.println(student);
         }
         model.addAttribute("allBlackedStudent",allBlackedStudent);
-        return "blacklist";
+        return "forward:/blacklist.html";
     }
 
     @GetMapping("/set_student_black_list")
@@ -50,7 +50,7 @@ public class BlackListController {
         }
         System.out.println("开始添加黑名单学生");
         blackListService.addStudentBlackList(new BlackList(selectStudentId,date_begin,date_end, WebConstant.BLACKED_SUCCESS_STATE,CommonUtil.getLoginUser(request).getS_id()));
-        System.out.println("添加黑名单学生成功");
+        System.out.println("添加黑名单学生成");
         return "redirect:all_student";
     }
 
