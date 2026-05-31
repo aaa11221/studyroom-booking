@@ -2,16 +2,49 @@ name: CI
 
 on:
   push:
-    branches: [develop, main]
+    branches: [main, develop]
   pull_request:
-    branches: [develop, main]
+    branches: [main, develop]
 
 jobs:
-  frontend-lint-and-test:
+  backend-test:
+    name: Backend Test
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 11
+          cache: maven
+
+      - name: Run backend tests with coverage
+        run: ./mvnw.cmd test
+
+      - name: Upload backend coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: backend/target/site/jacoco/jacoco.xml
+          flags: backend
+          fail_ci_if_error: false
+
+  frontend-lint-and-test:
+    name: Frontend Lint and Test
+    runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: frontend
+
     env:
       VITE_API_URL: http://localhost:3000
 
@@ -26,13 +59,13 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci
 
-      - name: Run lint
+      - name: Run frontend lint
         run: npm run lint
 
-      - name: Run tests with coverage
+      - name: Run frontend tests with coverage
         run: npm test
 
       - name: Upload frontend coverage to Codecov
@@ -41,31 +74,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: frontend/coverage/lcov.info
           flags: frontend
-          fail_ci_if_error: true
-
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v4
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Build and Test
-        run: mvn clean test
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: target/site/jacoco/jacoco.xml
-          flags: backend
+          fail_ci_if_error: false
