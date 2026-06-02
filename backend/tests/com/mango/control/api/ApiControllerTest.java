@@ -3,6 +3,7 @@ package com.mango.control.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mango.constant.WebConstant;
 import com.mango.dao.BaseDao;
+import com.mango.monitoring.MonitoringMetrics;
 import com.mango.pojo.BlackList;
 import com.mango.pojo.Classroom;
 import com.mango.pojo.Student;
@@ -59,6 +60,9 @@ class ApiControllerTest {
 
     @MockBean
     private BaseDao baseDao;
+
+    @MockBean
+    private MonitoringMetrics monitoringMetrics;
 
     @Test
     void loginSuccessReturnsSafeUserAndRole() throws Exception {
