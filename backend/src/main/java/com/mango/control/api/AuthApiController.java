@@ -3,6 +3,7 @@ package com.mango.control.api;
 import com.mango.constant.WebConstant;
 import com.mango.pojo.Student;
 import com.mango.service.Impl.StudentServiceImpl;
+import com.mango.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,11 +32,16 @@ public class AuthApiController extends ApiControllerSupport {
         }
 
         Student student = studentService.getStudentById(username);
-        if (student == null || !password.equals(student.getPassword())) {
+        if (student == null || !PasswordUtil.matches(password, student.getPassword())) {
             throw new IllegalArgumentException("username or password is invalid");
         }
 
         HttpSession session = request.getSession(true);
+        request.changeSessionId();
+        if (PasswordUtil.needsRehash(student.getPassword())) {
+            studentService.updatePassword(student.getS_id(), password);
+            student.setPassword(PasswordUtil.hash(password));
+        }
         session.setAttribute(WebConstant.LOGIN_USER, student);
 
         Map<String, Object> data = new HashMap<>();

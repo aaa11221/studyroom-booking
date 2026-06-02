@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/reservation_demo?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
-    username: reservation_user
-    password: Resv@123456
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/reservation_demo?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8}
+    username: ${SPRING_DATASOURCE_USERNAME:reservation_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
   thymeleaf:
     cache: false
 
@@ -11,7 +11,7 @@ mybatis:
   type-aliases-package: com.mango.pojo
   mapper-locations: classpath:mybatis/mapper/*.xml
 server:
-  port: 9099
+  port: ${SERVER_PORT:9099}
 
 app:
   cors:

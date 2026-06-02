@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 @Component("CommonUtil")
 public class CommonUtil {
     public static Student getLoginUser(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session == null) {
             return null;
         }

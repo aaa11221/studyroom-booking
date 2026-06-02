@@ -5,6 +5,7 @@ import com.mango.constant.WebConstant;
 import com.mango.dao.BaseDao;
 import com.mango.pojo.Student;
 import com.mango.service.Impl.StudentServiceImpl;
+import com.mango.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +40,13 @@ public class LoginController {
             model.addAttribute("msg","该用户不存在!");
             return "forward:/login.html";
         }else {
-            if (psw.equals(student.getPassword())) {
+            if (PasswordUtil.matches(psw, student.getPassword())) {
                 HttpSession session = request.getSession();
+                request.changeSessionId();
+                if (PasswordUtil.needsRehash(student.getPassword())) {
+                    service.updatePassword(student.getS_id(), psw);
+                    student.setPassword(PasswordUtil.hash(psw));
+                }
 
                 session.setAttribute(WebConstant.LOGIN_USER,student);
                 if (student.getS_id().equals("admin")) {

@@ -17,7 +17,7 @@ services:
   backend:
     image: maven:3.9-eclipse-temurin-11
     working_dir: /app
-    command: mvn -q spring-boot:run
+    command: mvn -q -f backend/pom.xml spring-boot:run
     ports:
       - "9099:9099"
     volumes:
@@ -26,7 +26,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/reservation_demo?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
       - SPRING_DATASOURCE_USERNAME=reservation_user
-      - SPRING_DATASOURCE_PASSWORD=Resv@123456
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD:?set MYSQL_PASSWORD}
       - SERVER_PORT=9099
     depends_on:
       db:
@@ -36,10 +36,10 @@ services:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: reservation_demo
       MYSQL_USER: reservation_user
-      MYSQL_PASSWORD: Resv@123456
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     healthcheck:
@@ -49,9 +49,8 @@ services:
       retries: 20
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./init_reservation_demo.sql:/docker-entrypoint-initdb.d/init_reservation_demo.sql:ro
+      - ./backend/init_reservation_demo.sql:/docker-entrypoint-initdb.d/init_reservation_demo.sql:ro
 
 volumes:
   mysql_data:
   maven_cache:
-

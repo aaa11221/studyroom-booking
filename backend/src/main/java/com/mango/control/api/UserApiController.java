@@ -8,6 +8,7 @@ import com.mango.pojo.Student;
 import com.mango.service.Impl.BlackListServiceImpl;
 import com.mango.service.Impl.ReservationServiceImpl;
 import com.mango.service.Impl.StudentServiceImpl;
+import com.mango.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -104,13 +105,15 @@ public class UserApiController extends ApiControllerSupport {
         if (oldPassword == null || newPassword == null || cmPassword == null) {
             throw new IllegalArgumentException("password fields are required");
         }
-        if (!oldPassword.equals(loginUser.getPassword())) {
+        Student currentUser = studentService.getStudentById(loginUser.getS_id());
+        if (currentUser == null || !PasswordUtil.matches(oldPassword, currentUser.getPassword())) {
             throw new IllegalArgumentException("old password is wrong");
         }
         if (!newPassword.equals(cmPassword)) {
             throw new IllegalArgumentException("new passwords do not match");
         }
         studentService.updatePassword(loginUser.getS_id(), newPassword);
+        loginUser.setPassword(PasswordUtil.hash(newPassword));
         return ApiResponse.success("password updated", null);
     }
 

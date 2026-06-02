@@ -13,6 +13,7 @@ import com.mango.service.Impl.BlackListServiceImpl;
 import com.mango.service.Impl.ClassroomServiceImpl;
 import com.mango.service.Impl.ReservationServiceImpl;
 import com.mango.service.Impl.StudentServiceImpl;
+import com.mango.utils.PasswordUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -89,13 +91,16 @@ class ServiceUnitTest {
     }
 
     @Test
-    void updatePasswordDelegatesToDao() {
-        when(studentDao.updatePassword("32001041", "new-pass")).thenReturn(1);
+    void updatePasswordStoresPasswordHash() {
+        when(studentDao.updatePassword(eq("32001041"), anyString())).thenReturn(1);
 
         int updated = studentService.updatePassword("32001041", "new-pass");
 
         assertEquals(1, updated);
-        verify(studentDao).updatePassword("32001041", "new-pass");
+        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
+        verify(studentDao).updatePassword(eq("32001041"), passwordCaptor.capture());
+        assertTrue(PasswordUtil.matches("new-pass", passwordCaptor.getValue()));
+        assertFalse("new-pass".equals(passwordCaptor.getValue()));
     }
 
     @Test
