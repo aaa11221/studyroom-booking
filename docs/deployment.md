@@ -70,7 +70,7 @@ mysql -h MYSQLHOST -P MYSQLPORT -u MYSQLUSER -p MYSQLDATABASE < backend/init_res
 
 ## 在线地址
 
-- 前端地址：https://your-frontend.up.railway.app
+- 前端地址：https://ample-happiness-production-ccaf.up.railway.app
 - 后端地址：https://studyroom-booking-production.up.railway.app
 - 后端健康检查：https://studyroom-booking-production.up.railway.app/health
 

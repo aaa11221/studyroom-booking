@@ -7,10 +7,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-COPY index.html style.css app.js ./
+COPY index.html style.css app.js config.js ./
 COPY src ./src
 COPY web ./web
-RUN mkdir -p /dist && cp -r index.html style.css app.js src web /dist/
+RUN mkdir -p /dist && cp -r index.html style.css app.js config.js src web /dist/
 
 FROM ${NODE_IMAGE} AS dev
 WORKDIR /app
