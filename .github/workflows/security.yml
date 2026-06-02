@@ -2,43 +2,13 @@ name: Security Scan
 
 on:
   push:
-    branches: [main, develop]
   pull_request:
-    branches: [main, develop]
 
 jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
-
-jobs:
-  security:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend # 指定工作目录为 backend 文件夹
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v4
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      - name: Run dependency check
-        run: |
-          echo "开始执行安全依赖扫描..."
-          mvn dependency:tree
-          echo "安全扫描执行完成"
+      - uses: gitleaks/gitleaks-action@v2
