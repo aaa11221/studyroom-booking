@@ -2,27 +2,33 @@ services:
   frontend:
     build:
       context: ./frontend
+      target: dev
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:20-alpine}
+        STATIC_IMAGE: ${STATIC_IMAGE:-busybox:1.36.1-musl}
     ports:
-      - "5173:8080"
+      - "5173:5173"
     volumes:
-      - ./frontend/index.html:/usr/share/nginx/html/index.html:ro
-      - ./frontend/style.css:/usr/share/nginx/html/style.css:ro
-      - ./frontend/app.js:/usr/share/nginx/html/app.js:ro
+      - ./frontend:/app
     environment:
       - VITE_API_URL=http://localhost:9099
     depends_on:
       backend:
-        condition: service_started
+        condition: service_healthy
 
   backend:
-    image: maven:3.9-eclipse-temurin-11
-    working_dir: /app
-    command: mvn -q -f backend/pom.xml spring-boot:run
+    build:
+      context: ./backend
+      target: dev
+      args:
+        MAVEN_IMAGE: ${MAVEN_IMAGE:-maven:3.9-eclipse-temurin-11-alpine}
+        JRE_IMAGE: ${JRE_IMAGE:-bellsoft/liberica-openjre-alpine:11}
+    working_dir: /workspace
     ports:
       - "9099:9099"
     volumes:
-      - ./:/app
-      - maven_cache:/root/.m2
+      - ./backend:/workspace
+      - maven_cache:/home/app/.m2
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/reservation_demo?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
       - SPRING_DATASOURCE_USERNAME=reservation_user
@@ -31,6 +37,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9099/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 60s
 
   db:
     image: mysql:8.0
@@ -41,9 +53,9 @@ services:
       MYSQL_USER: reservation_user
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set MYSQL_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -proot"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 5s
       retries: 20

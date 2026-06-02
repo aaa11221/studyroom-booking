@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.mvn/wrapper/maven-wrapper.jar
+.m2
+target
+*.iml
+*.log
+.DS_Store
+**/.DS_Store
+.env
+.env.*
+Dockerfile*
+README.md

@@ -1,6 +1,8 @@
 .env
 .env.*
 !.env.example
+secrets/*.txt
+backend/.m2/
 node_modules/
 coverage/
 target/

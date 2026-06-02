@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+if [ -n "$SPRING_DATASOURCE_PASSWORD_FILE" ] && [ -f "$SPRING_DATASOURCE_PASSWORD_FILE" ]; then
+  SPRING_DATASOURCE_PASSWORD="$(cat "$SPRING_DATASOURCE_PASSWORD_FILE")"
+  export SPRING_DATASOURCE_PASSWORD
+fi
+
+exec java -jar /app/app.jar
