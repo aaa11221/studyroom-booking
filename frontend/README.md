@@ -1,4 +1,4 @@
-# Frontend (API-driven demo)
+# Frontend
 
 This folder contains a standalone frontend demo and automated tests.
 
