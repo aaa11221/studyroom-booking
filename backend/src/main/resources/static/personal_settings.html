@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人信息设置-自习预约设置管理</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png">
+    <link rel="stylesheet" href="/assets/main/css/fonts.css">
+    <link rel="stylesheet" href="/assets/main/css/style.css">
+</head>
+<body>
+<div id="main-wrapper" class="show">
+    <aside class="left-panel nicescroll-box">
+        <nav class="navigation">
+            <ul class="list-unstyled main-menu">
+                <li class="has-submenu">
+                    <a href="/student_index" class="has-submenu active">
+                        <i class="fas fa-th-large"></i>
+                        <span class="nav-label">首页</span>
+                    </a>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="nav-label">预约管理</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="/make_reservation">预约自习室</a></li>
+                        <li><a href="/user_reservation">我的预约</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu active">
+                    <a href="/personal_settings">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-label">设置</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="header">
+        <header class="top-head container-fluid">
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+                <div class="left-header content-header__menu">
+                    <ul class="list-unstyled">
+                        <li class="nav-link btn">
+                            <a href="/make_reservation"><i class="far fa-calendar-check"></i> <span> 新添加自习预约 </span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="fullscreen notification_dropdown">
+                    <div class="full">
+                        <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
+                            <i class="fas fa-expand"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="my-account-wrapper">
+                    <div class="account-wrapper">
+                        <div class="account-control">
+                            <a class="login header-profile" href="#" title="Sign in">
+                                <div class="header-info">
+                                    <span id="headerUserName">未登录</span>
+                                    <small id="headerUserRole">访客</small>
+                                </div>
+                            </a>
+                            <div class="account-dropdown-form dropdown-container">
+                                <div class="form-content">
+                                    <a href="#" id="logoutBtn">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span class="ml-2">登出</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="content-body">
+        <div class="warper container-fluid">
+            <div class="main_container">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6">
+                        <div class="welcome-text">
+                            <h4 class="text-primary">设置</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/student_index">首页</a></li>
+                            <li class="breadcrumb-item active"><a href="/personal_settings">个人信息设置</a></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="doctor-info-content">
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="row m-t-30 m-l-0 m-r-0">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">个人信息</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="basic-form">
+                                                    <form id="profileForm">
+                                                        <div class="row">
+                                                            <div class="col-xl-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">学号</label>
+                                                                        <input type="text" class="form-control" id="s_id" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">姓名</label>
+                                                                        <input type="text" class="form-control" id="s_name" name="s_name">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">年级</label>
+                                                                        <select class="form-control form-select" id="s_year" name="s_year">
+                                                                            <option value="">请选择年级</option>
+                                                                            <option>1</option>
+                                                                            <option>2</option>
+                                                                            <option>3</option>
+                                                                            <option>4</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xl-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">专业</label>
+                                                                        <input type="text" class="form-control" id="s_major" name="s_major">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">班级</label>
+                                                                        <input type="text" class="form-control" id="s_class" name="s_class">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">联系方式</label>
+                                                                        <input type="text" class="form-control" id="s_phone_number" name="s_phone_number">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group text-right">
+                                                                    <button type="submit" class="btn btn-primary float-end">保存</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <p class="text-danger mt-2 mb-0" id="profileMsg"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">修改密码</h4>
+                                            </div>
+                                            <form class="card-body" id="passwordForm">
+                                                <div>
+                                                    <div class="row g-3 align-items-center">
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">密码</label>
+                                                                <input type="text" class="form-control" placeholder="密码" id="old_password" name="old_password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6"></div>
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">新密码</label>
+                                                                <input type="password" class="form-control" placeholder="新密码" id="new_password" name="new_password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">确认新密码</label>
+                                                                <input type="password" class="form-control" placeholder="确认新密码" id="cm_password" name="cm_password">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary float-end">确认修改</button>
+                                                </div>
+                                            </form>
+                                            <p class="text-danger mt-2 mb-0" id="passwordMsg"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/plugins/jquery/jquery.min.js"></script>
+<script src="/assets/plugins/popper/popper.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/plugins/moment/moment.min.js"></script>
+<script src="/assets/plugins/daterangepicker/daterangepicker.min.js"></script>
+<script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/js/init-tdatatable.js"></script>
+<script src="/assets/js/toggleFullScreen.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/app-shell.js"></script>
+<script src="/assets/js/personal_settings_api.js"></script>
+</body>
+</html>

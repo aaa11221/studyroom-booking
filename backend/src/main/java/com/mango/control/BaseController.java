@@ -22,7 +22,7 @@ public class BaseController {
     public String updateReservationBoard(Model model) {
         List<Student> students = studentService.getAll();
         model.addAttribute("students",students);
-        return "list";
+        return "forward:/all_student.html";
     }
 
     /**

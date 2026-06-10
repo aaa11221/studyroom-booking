@@ -47,7 +47,7 @@ public class ReservationController {
 
         model.addAttribute("students",students);
 
-        return "reservation/all_student_reservation";
+        return "forward:/all_student_reservation.html";
     }
 
 
@@ -86,7 +86,7 @@ public class ReservationController {
 
         model.addAttribute("classrooms",classrooms);
 
-        return "reservation/all_classroom_reservation";
+        return "forward:/all_classroom_reservation.html";
     }
 
 

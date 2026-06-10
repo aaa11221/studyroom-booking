@@ -27,13 +27,13 @@ public class SettingController {
 //        System.out.println(student);
         model.addAttribute("login_user",student);
 
-        return "settings/personal_settings";
+        return "forward:/personal_settings.html";
     }
 
 
     @GetMapping("/updateStudentInfo")
     public String updateStudentInfo(HttpServletRequest request) {
-        System.out.println("进入了更新信息");
+        System.out.println("进入了更新信");
         Student student = new Student();
 
 //        注入学生学号
@@ -103,18 +103,18 @@ public class SettingController {
                         System.out.println("修改成功");
                         model.addAttribute("msg","修改成功!");
                     }else {
-                        model.addAttribute("msg","两次输入密码不一致!");
+                        model.addAttribute("msg","两次输入密码不一�?");
                     }
                 }else {
-                    model.addAttribute("msg","新密码不能为空!");
+                    model.addAttribute("msg","新密码不能为�?");
                 }
             }else {
-                model.addAttribute("msg","密码不正确!");
+                model.addAttribute("msg","密码不正�?");
             }
         }else {
             model.addAttribute("msg","密码不能为空!");
         }
         model.addAttribute("login_user",student);
-        return "settings/personal_settings";
+        return "forward:/personal_settings.html";
     }
 }

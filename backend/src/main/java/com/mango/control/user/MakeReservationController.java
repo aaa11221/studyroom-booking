@@ -105,7 +105,7 @@ public class MakeReservationController {
 
         model.addAttribute("allAvailableClassrooms", allAvailableClassrooms);
 
-        return "make_reservation";
+        return "forward:/make_reservation.html";
     }
 
 
@@ -119,7 +119,7 @@ public class MakeReservationController {
         reservationService.setAllSelectClassrooms(allSelectClassrooms);
 
         model.addAttribute("allSelectClassrooms", allSelectClassrooms);
-        return "confirm_reservation";
+        return "forward:/make_reservation.html";
     }
 
 
@@ -127,21 +127,21 @@ public class MakeReservationController {
     public String reservation_check(HttpServletRequest request, Model model) {
         Student loginUser = CommonUtil.getLoginUser(request);
 
-        System.out.println("开始预约...");
+        System.out.println("开始预�?..");
         // 先查询是否在黑名单中
         BlackList student = blackListService.getBlackedStudentById(loginUser.getS_id());
         System.out.println(student);
 
         if (student != null) {
 
-            model.addAttribute("msg","已被列入黑名单中，无法预约!");
-            return "confirm_reservation";
+            model.addAttribute("msg","已被列入黑名单中，无法预�?");
+            return "forward:/make_reservation.html";
         }else {
-            // 如果不在进行下一个判断
+            // 如果不在进行下一个判�?
             // 查询是否一星期存在三次取消预约，先通过sql找出所有取消预约的记录
             if (studentService.isThreeTimesCanceledOfWeekById(loginUser.getS_id()) == true) {
                 model.addAttribute("msg","存在一个星期超过三次取消预约行为，无法预约!");
-                return "confirm_reservation";
+                return "forward:/make_reservation.html";
             }
         }
 
@@ -151,8 +151,8 @@ public class MakeReservationController {
         } catch (DataIntegrityViolationException e) {
             String message = e.getMostSpecificCause() == null ? null : e.getMostSpecificCause().getMessage();
             if (message != null && message.contains("Duplicate entry") && message.contains("student_reservation")) {
-                model.addAttribute("msg","已预约过该时段/教室，请勿重复预约!");
-                return "confirm_reservation";
+                model.addAttribute("msg","已预约过该时�?教室，请勿重复预�?");
+                return "forward:/make_reservation.html";
             }
             throw e;
         }

@@ -5,6 +5,7 @@ import com.mango.dao.StudentDao;
 import com.mango.pojo.Student;
 import com.mango.pojo.StudentReservation;
 import com.mango.service.StudentService;
+import com.mango.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int updatePassword(String s_id, String new_password) {
-        return studentDao.updatePassword(s_id,new_password);
+        return studentDao.updatePassword(s_id, PasswordUtil.hash(new_password));
     }
 
 
@@ -60,6 +61,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void addStudent(Student student) {
+        if (student.getPassword() != null) {
+            student.setPassword(PasswordUtil.hash(student.getPassword()));
+        }
         studentDao.addStudent(student);
     }
 

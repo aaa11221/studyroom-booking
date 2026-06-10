@@ -56,7 +56,7 @@ public class StudentIndexController {
         model.addAttribute("students",students);
 
 
-        return "student_index";
+        return "forward:/student_index.html";
     }
 
     @GetMapping("/user_reservation")
@@ -64,7 +64,7 @@ public class StudentIndexController {
         Student loginUser = CommonUtil.getLoginUser(request);
         List<Student> students = reservationService.getAllStudentReservationInfo(loginUser);
         model.addAttribute("students",students);
-        return "user_reservation";
+        return "forward:/user_reservation.html";
     }
 
     @GetMapping("/cancel_reservation")

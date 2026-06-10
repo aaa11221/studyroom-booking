@@ -1,5 +1,5 @@
 (function initFrontend(globalObj) {
-  const API_BASE = "";
+  const API_BASE = (globalObj.APP_CONFIG && globalObj.APP_CONFIG.API_BASE) || "";
   const LOGIN_MAX_ATTEMPTS = 5;
   const LOGIN_LOCK_MS = 10 * 60 * 1000;
   const loginGuard = {

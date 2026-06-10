@@ -27,7 +27,7 @@ public class ClassroomController {
     public String all_classroom(Model model) {
         List<Classroom> classrooms = classroomService.getAll();
         model.addAttribute("classrooms",classrooms);
-        return "classroom/all_classroom";
+        return "forward:/all_classroom.html";
     }
 
 
@@ -71,12 +71,12 @@ public class ClassroomController {
     public String classroom_delete(String room_id, Model model) {
         int reservedNums = classroomService.getClassroomReserved(room_id);
         if (reservedNums > 0) {
-            model.addAttribute("msg","该教室已被预约,无法删除");
+            model.addAttribute("msg","该教室已被预�?无法删除");
             List<Classroom> classrooms = classroomService.getAll();
             model.addAttribute("classrooms",classrooms);
-            return "classroom/all_classroom";
+            return "forward:/all_classroom.html";
         }else {
-            //删除所有教室相关表 教室，教室时段表，教室可用表等信息
+            //删除所有教室相关表 教室，教室时段表，教室可用表等信�?
             classroomService.deleteClassroomInfo(room_id);
         }
         return "redirect:all_classroom";
