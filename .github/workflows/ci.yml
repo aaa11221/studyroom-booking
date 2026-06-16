@@ -28,6 +28,14 @@ jobs:
       - name: Run backend tests
         run: mvn test
 
+      - name: Upload backend coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: backend/target/site/jacoco/jacoco.xml
+          flags: backend
+          fail_ci_if_error: true
+
   frontend-lint-and-test:
     runs-on: ubuntu-latest
     defaults:
